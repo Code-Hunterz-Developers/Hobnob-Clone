@@ -24,7 +24,13 @@ async function fetchCategories(): Promise<Category[]> {
 }
 
 export function useListCategories() {
-  return useQuery({ queryKey: categoriesQueryKey(), queryFn: fetchCategories });
+  return useQuery({
+    queryKey: categoriesQueryKey(),
+    queryFn: fetchCategories,
+    // Categories drive the nav — they rarely change, so cache them longer
+    // than the app default to avoid a refetch (and nav flicker) on every visit.
+    staleTime: 30 * 60 * 1000,
+  });
 }
 
 export function useAdminCreateCategory() {

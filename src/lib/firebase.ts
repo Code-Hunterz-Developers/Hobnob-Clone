@@ -1,6 +1,10 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import {
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+} from 'firebase/firestore';
 
 // Firebase Storage is not used — it requires the paid Blaze plan.
 // Images are compressed client-side and stored inline in Firestore instead (see src/lib/api/image.ts).
@@ -16,4 +20,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+
+// Persistent local (IndexedDB) cache so repeat reads — categories, products,
+// nav data — are served instantly from disk instead of waiting on a network
+// round trip, and stay in sync across tabs.
+export const db = initializeFirestore(app, {
+  localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }),
+});

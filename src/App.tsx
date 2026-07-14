@@ -1,4 +1,6 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/react-query';
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
+import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister';
 import { Toaster } from '@/components/ui/toaster';
 import { Toaster as SonnerToaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -26,6 +28,9 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       staleTime: 5 * 60 * 1000,
+      // Keep cached data around long enough for the localStorage persister
+      // (below) to actually be useful across page reloads/visits.
+      gcTime: 24 * 60 * 60 * 1000,
       retry: (failureCount, error) => {
         // Firestore/Storage permission errors won't succeed on retry — fail fast.
         const code = (error as { code?: string })?.code;
@@ -35,6 +40,15 @@ const queryClient = new QueryClient({
       retryDelay: 400,
     },
   },
+});
+
+// Persist the query cache to localStorage so data already fetched once
+// (categories/nav, products, etc.) renders instantly on the next visit or
+// reload instead of showing a loading state while Firestore round-trips.
+const persister = createAsyncStoragePersister({
+  storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+  key: 'sweet-treats-query-cache',
+  throttleTime: 1000,
 });
 
 function StorefrontRouter() {
@@ -66,7 +80,7 @@ function Router() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
       <AdminAuthProvider>
         <CartProvider>
           <TooltipProvider>
@@ -78,7 +92,7 @@ function App() {
           </TooltipProvider>
         </CartProvider>
       </AdminAuthProvider>
-    </QueryClientProvider>
+    </PersistQueryClientProvider>
   );
 }
 
