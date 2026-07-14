@@ -1,0 +1,3 @@
+- [Design subagent deep-import bug](design-subagent-deep-imports.md) — design subagent sometimes imports generated API hooks via deep `/src/generated/api` path instead of the package root; check and fix after it returns.
+- [Seed data product images](seed-data-static-images.md) — DB-seeded imageUrl fields need real HTTP paths; copy generated images into the artifact's `public/` dir, not `attached_assets/`.
+- [pnpm per-package add can break drizzle types](pnpm-per-package-add-drizzle-conflict.md) — adding deps to a package importing shared Drizzle tables can split drizzle-orm into two instances; fix by adding the same driver dep (e.g. pg) to that package.
