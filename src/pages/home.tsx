@@ -120,14 +120,14 @@ function ProductRow({ tag, title, icon, link }: { tag: string, title: string, ic
 
 export default function Home() {
   return (
-    <div className="animate-in fade-in duration-500">
+    <div className="animate-in fade-in duration-500 brand-orchard">
       {/* Hero Section */}
-      <section className="relative min-h-[560px] sm:min-h-[620px] md:min-h-[700px] py-16 md:py-20 flex items-center justify-center overflow-hidden bg-foreground">
+      <section className="relative min-h-[620px] sm:min-h-[680px] md:min-h-[760px] py-16 md:py-20 flex items-center justify-center overflow-hidden bg-foreground">
         {/* Background layer with dark overlay */}
         <div className="absolute inset-0 z-0">
           <img 
             src="/images/hero-banner-2.jpg" 
-            alt="Bakery Hero" 
+            alt="Lavashak Karachi hero banner" 
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/70 to-foreground/30"></div>
@@ -143,23 +143,29 @@ export default function Home() {
             <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase">Freshly Baked Today</span>
           </div>
           
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-background mb-4 md:mb-6 tracking-tight max-w-5xl mx-auto leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150 fill-mode-both text-balance">
-            Indulgence, crafted by hand.
+          <img
+            src="/images/lavashak-logo.png"
+            alt="Lavashak Karachi"
+            className="mx-auto mb-6 h-40 w-auto sm:h-48 md:h-56 lg:h-64 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150 fill-mode-both drop-shadow-[0_20px_40px_rgba(0,0,0,0.25)]"
+          />
+
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-background mb-4 md:mb-6 tracking-tight max-w-5xl mx-auto leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both text-balance">
+            Dual flavours, bold gifting, unmistakably Karachi.
           </h1>
           
-          <p className="font-sans text-base sm:text-lg md:text-2xl text-background/80 max-w-2xl mx-auto mb-8 md:mb-10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both px-4">
-            Neighborhood bakery turned online storefront. We make celebratory, craft-made desserts that you'll remember.
+          <p className="font-sans text-base sm:text-lg md:text-2xl text-background/80 max-w-3xl mx-auto mb-8 md:mb-10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500 fill-mode-both px-4">
+            Lavashak-inspired treats, rich chocolate accents, and fruit-loaded dessert boxes styled around your new brand palette.
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500 fill-mode-both w-full max-w-md mx-auto sm:max-w-none px-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-700 fill-mode-both w-full max-w-md mx-auto sm:max-w-none px-4">
             <Link href="/category/all" className="w-full sm:w-auto">
               <Button size="lg" className="h-12 md:h-14 px-6 md:px-8 text-base md:text-lg rounded-full shadow-xl shadow-primary/20 font-bold w-full text-primary-foreground hover:scale-105 transition-transform">
-                Shop All Treats
+                Shop Signature Range
               </Button>
             </Link>
             <Link href="/category/all?tag=deal" className="w-full sm:w-auto">
               <Button size="lg" variant="outline" className="h-12 md:h-14 px-6 md:px-8 text-base md:text-lg rounded-full bg-transparent border-background/30 text-background hover:bg-background hover:text-foreground w-full">
-                View Deals
+                View Gift Boxes
               </Button>
             </Link>
           </div>
@@ -187,9 +193,9 @@ export default function Home() {
           
           <div className="grid md:grid-cols-2 items-stretch relative z-10">
             <div className="p-8 md:p-16 lg:p-24 flex flex-col items-start justify-center text-left order-2 md:order-1">
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 md:mb-6 leading-tight">The Workshop Deal Box</h2>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 md:mb-6 leading-tight">The Lavashak Signature Box</h2>
               <p className="font-sans text-base sm:text-lg md:text-xl text-muted-foreground mb-8 md:mb-10 max-w-md">
-                Can't decide? Get a curated selection of our best-selling cupcakes and tarts, boxed beautifully for gifting or hoarding.
+                A curated mix of fruit-forward favourites and rich dessert pairings, packed for gifting with the same warmth as your logo.
               </p>
               <Link href="/category/all?tag=deal" className="w-full sm:w-auto">
                 <Button size="lg" className="h-12 md:h-14 px-6 md:px-8 text-base md:text-lg rounded-full shadow-lg shadow-primary/20 group w-full sm:w-auto">
@@ -200,7 +206,7 @@ export default function Home() {
             <div className="h-48 sm:h-64 md:h-auto min-h-[250px] relative order-1 md:order-2">
               <img 
                 src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000&auto=format&fit=crop" 
-                alt="Deal Box" 
+                alt="Lavashak signature gift box" 
                 className="absolute inset-0 w-full h-full object-cover object-center md:clip-path-polygon-[10%_0,100%_0,100%_100%,0_100%]"
               />
             </div>

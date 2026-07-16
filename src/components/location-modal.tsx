@@ -152,7 +152,7 @@ export function LocationModal({
       <DialogContent className="sm:max-w-[425px] p-0 overflow-hidden bg-background border-border rounded-3xl shadow-xl w-[calc(100vw-32px)] max-w-md mx-auto my-auto">
         <DialogHeader className="sr-only">
           <DialogTitle>Select your city</DialogTitle>
-          <DialogDescription>Choose your delivery city for Sweet Treats Bakery</DialogDescription>
+          <DialogDescription>Choose your delivery city for Lavashak Karachi</DialogDescription>
         </DialogHeader>
         <div className="bg-primary p-8 text-primary-foreground text-center relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-primary-foreground/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3"></div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { ShoppingBag, Menu, Croissant, CakeSlice, MapPin } from 'lucide-react';
+import { ShoppingBag, Menu, MapPin } from 'lucide-react';
 import { useCart } from '@/lib/cart';
 import { useListCategories } from '@/lib/api/categories';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { LocationModal } from '@/components/location-modal';
+import { BrandLogo } from '@/components/brand-logo';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { cartCount } = useCart();
@@ -85,13 +86,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
       />
       
       {/* Top utility banner */}
-      <div className="bg-foreground text-background py-2 text-center text-xs tracking-wider font-medium font-sans uppercase px-4 truncate">
-        Free delivery on orders over Rs. 5,000. Baked fresh daily.
+      <div className="bg-primary text-primary-foreground py-2 text-center text-xs tracking-[0.22em] font-semibold font-sans uppercase px-4 truncate">
+        Dual Flavours, One Passion. Freshly packed for Karachi.
       </div>
       
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
-        <div className="container mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
+        <div className="container mx-auto px-4 md:px-6 h-20 md:h-24 flex items-center justify-between gap-3">
           
           <div className="flex items-center gap-2 md:gap-4">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -110,17 +111,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </SheetContent>
             </Sheet>
 
-            <Link href="/" className="flex items-center gap-2 group" data-testid="link-home">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center transform group-hover:-rotate-12 transition-transform shadow-md shrink-0">
-                <CakeSlice className="w-5 h-5 md:w-6 md:h-6" />
-              </div>
-              <span className="font-serif text-xl md:text-3xl font-bold tracking-tight text-foreground truncate max-w-[140px] sm:max-w-none">
-                Sweet Treats
-              </span>
+            <Link href="/" className="flex items-center group" data-testid="link-home">
+              <BrandLogo imageClassName="h-14 md:h-16 group-hover:scale-[1.02] transition-transform" />
             </Link>
           </div>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             <NavLinks />
           </nav>
 
@@ -158,29 +154,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-foreground text-background pt-16 pb-8 border-t-4 border-primary mt-12">
+      <footer className="bg-primary text-primary-foreground pt-16 pb-8 border-t-4 border-secondary mt-12">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 mb-12">
             <div className="sm:col-span-2">
-              <Link href="/" className="flex items-center gap-2 mb-6 group inline-flex">
-                <div className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center transform group-hover:rotate-12 transition-transform shadow-md">
-                  <Croissant className="w-6 h-6" />
-                </div>
-                <span className="font-serif text-2xl font-bold tracking-tight text-background">
-                  Sweet Treats
-                </span>
+              <Link href="/" className="mb-6 group inline-flex">
+                <BrandLogo imageClassName="h-24 md:h-28 brightness-110" />
               </Link>
-              <p className="text-muted-foreground max-w-sm font-sans text-base md:text-lg">
-                Craft-made, indulgent, and celebratory desserts baked fresh in our neighborhood workshop. Treat yourself.
+              <p className="text-primary-foreground/78 max-w-sm font-sans text-base md:text-lg">
+                Signature lavashak platters, chocolate pairings, and fruit-forward gifting boxes prepared with a rich Karachi identity.
               </p>
             </div>
             
             <div>
-              <h4 className="font-serif font-bold text-xl mb-6 text-primary">Shop</h4>
-              <ul className="space-y-4 font-sans text-muted-foreground">
+              <h4 className="font-serif font-bold text-xl mb-6 text-secondary">Shop</h4>
+              <ul className="space-y-4 font-sans text-primary-foreground/78">
                 {categories?.map((cat) => (
                   <li key={cat.id}>
-                    <Link href={`/category/${cat.slug}`} className="hover:text-primary transition-colors">
+                    <Link href={`/category/${cat.slug}`} className="hover:text-secondary transition-colors">
                       {cat.name}
                     </Link>
                   </li>
@@ -189,22 +180,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
             
             <div>
-              <h4 className="font-serif font-bold text-xl mb-6 text-primary">Contact</h4>
-              <ul className="space-y-4 font-sans text-muted-foreground">
-                <li>123 Bakery Lane</li>
-                <li>Sugar City, SC 12345</li>
-                <li>hello@sweettreats.example.com</li>
-                <li>(555) 123-4567</li>
+              <h4 className="font-serif font-bold text-xl mb-6 text-secondary">Contact</h4>
+              <ul className="space-y-4 font-sans text-primary-foreground/78">
+                <li>Lavashak Karachi</li>
+                <li>Karachi, Pakistan</li>
+                <li>orders@lavashakkarachi.com</li>
+                <li>+92 300 0000000</li>
               </ul>
             </div>
           </div>
           
-          <div className="pt-8 border-t border-muted-foreground/20 text-center md:text-left text-muted-foreground font-sans text-sm flex flex-col md:flex-row justify-between items-center gap-4">
-            <p>&copy; {new Date().getFullYear()} Sweet Treats Bakery. All rights reserved.</p>
+          <div className="pt-8 border-t border-primary-foreground/15 text-center md:text-left text-primary-foreground/72 font-sans text-sm flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; {new Date().getFullYear()} Lavashak Karachi. All rights reserved.</p>
             <div className="flex flex-wrap justify-center gap-4">
-              <span className="hover:text-primary cursor-pointer transition-colors">Instagram</span>
-              <span className="hover:text-primary cursor-pointer transition-colors">Facebook</span>
-              <span className="hover:text-primary cursor-pointer transition-colors">Twitter</span>
+              <span className="hover:text-secondary cursor-pointer transition-colors">Instagram</span>
+              <span className="hover:text-secondary cursor-pointer transition-colors">Facebook</span>
+              <span className="hover:text-secondary cursor-pointer transition-colors">TikTok</span>
             </div>
           </div>
         </div>

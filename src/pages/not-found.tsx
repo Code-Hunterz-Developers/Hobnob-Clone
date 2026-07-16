@@ -12,11 +12,11 @@ export default function NotFound() {
         404 Not Found
       </h1>
       <p className="font-sans text-lg text-muted-foreground max-w-md mb-8">
-        Looks like this crumb trail leads to nowhere. Let's get you back to the fresh bakes.
+        Looks like this trail missed the Lavashak counter. Let's get you back to the signature treats.
       </p>
       <Link href="/">
         <Button size="lg" className="rounded-full px-8 h-14">
-          Return to Bakery
+          Return to Store
         </Button>
       </Link>
     </div>
