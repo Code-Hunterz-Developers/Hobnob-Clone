@@ -89,7 +89,7 @@ function ProductRow({ tag, title, icon, link }: { tag: string, title: string, ic
             {icon}
             <span className="font-sans font-bold tracking-widest uppercase text-xs md:text-sm">{tag}</span>
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl md:text-5xl font-bold text-foreground leading-tight">{title}</h2>
+          <h2 className="font-serif text-xl sm:text-2xl md:text-3xl font-bold text-foreground leading-tight">{title}</h2>
         </div>
         <Link href={link}>
           <Button variant="ghost" className="hidden sm:flex items-center gap-2 group hover:text-primary">
@@ -156,7 +156,7 @@ export default function Home() {
             className="mx-auto mb-6 h-40 w-auto sm:h-48 md:h-56 lg:h-64 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150 fill-mode-both drop-shadow-[0_20px_40px_rgba(0,0,0,0.25)]"
           />
 
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-background mb-4 md:mb-6 tracking-tight max-w-5xl mx-auto leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both text-balance">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-background mb-4 md:mb-6 tracking-tight max-w-5xl mx-auto leading-[1.1] animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both text-balance">
             Dual flavours, bold gifting, unmistakably Karachi.
           </h1>
           
@@ -213,7 +213,7 @@ export default function Home() {
           
           <div className="grid md:grid-cols-2 items-stretch relative z-10">
             <div className="p-8 md:p-16 lg:p-24 flex flex-col items-start justify-center text-left order-2 md:order-1">
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 md:mb-6 leading-tight">The Lavashak Signature Box</h2>
+              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 md:mb-6 leading-tight">The Lavashak Signature Box</h2>
               <p className="font-sans text-base sm:text-lg md:text-xl text-muted-foreground mb-8 md:mb-10 max-w-md">
                 A curated mix of fruit-forward favourites and rich dessert pairings, packed for gifting with the same warmth as your logo.
               </p>

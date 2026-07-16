@@ -1,4 +1,5 @@
 import { FileText } from 'lucide-react';
+import { PageHero } from '@/components/page-hero';
 
 const sections = [
   {
@@ -31,21 +32,11 @@ const sections = [
 export default function TermsAndConditionsPage() {
   return (
     <div className="pb-20">
-      <section className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 md:px-6 py-14 md:py-20">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 px-4 py-2 text-xs font-semibold tracking-[0.2em] uppercase">
-            <FileText className="w-4 h-4" />
-            Terms & Conditions
-          </div>
-          <h1 className="font-serif text-4xl md:text-6xl font-bold mt-6">
-            Order, payment, and delivery terms
-          </h1>
-          <p className="max-w-3xl text-lg text-primary-foreground/80 mt-4">
-            These terms cover how purchases, payments, fulfillment, and disputes are
-            handled on the website.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Order, payment, and delivery terms"
+        description="These terms cover how purchases, payments, fulfillment, and disputes are handled on the website."
+        badge={{ icon: <FileText className="w-4 h-4" />, label: 'Terms & Conditions' }}
+      />
 
       <section className="container mx-auto px-4 md:px-6 py-12 md:py-16">
         <div className="max-w-4xl space-y-8">

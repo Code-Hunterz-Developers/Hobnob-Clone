@@ -69,7 +69,7 @@ export default function TrackOrderPage() {
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 text-primary mb-6">
           <Search className="w-9 h-9" />
         </div>
-        <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
+        <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight">
           Track Your Order
         </h1>
         <p className="font-sans text-lg text-muted-foreground max-w-xl mx-auto">

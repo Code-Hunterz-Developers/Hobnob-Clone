@@ -2,30 +2,18 @@ import { Gift, Sparkles } from 'lucide-react';
 import { useListProducts } from '@/lib/api/products';
 import { ProductCard } from '@/components/product-card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { PageHero } from '@/components/page-hero';
 
 export default function DealBoxesPage() {
   const { data: dealBoxes, isLoading } = useListProducts({ tag: 'deal-box' });
 
   return (
     <div className="pb-20">
-      <section className="relative overflow-hidden bg-foreground text-background py-16 md:py-24">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,179,122,0.22),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(255,95,80,0.18),transparent_30%)]" />
-        <div className="container relative mx-auto px-4 md:px-6">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-background/15 px-4 py-2 text-xs font-semibold tracking-[0.22em] uppercase text-background/80">
-              <Gift className="w-4 h-4" />
-              Deal Boxes
-            </div>
-            <h1 className="font-serif text-4xl md:text-6xl font-bold mt-6">
-              Signature boxes made for gifting, sharing, and bulk orders
-            </h1>
-            <p className="mt-4 text-lg text-background/78 max-w-2xl">
-              This page is now separate from regular categories, and the admin panel
-              has its own upload tab for deal boxes as well.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Signature boxes made for gifting, sharing, and bulk orders"
+        description="This page is now separate from regular categories, and the admin panel has its own upload tab for deal boxes as well."
+        badge={{ icon: <Gift className="w-4 h-4" />, label: 'Deal Boxes' }}
+      />
 
       <section className="container mx-auto px-4 md:px-6 py-12 md:py-16">
         <div className="mb-8 rounded-3xl border border-border bg-card/80 p-6 md:p-8">

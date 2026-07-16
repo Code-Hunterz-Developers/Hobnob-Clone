@@ -8,7 +8,7 @@ export default function NotFound() {
       <div className="w-24 h-24 bg-muted rounded-full flex items-center justify-center mb-8">
         <SearchX className="w-10 h-10 text-muted-foreground" />
       </div>
-      <h1 className="font-serif text-5xl md:text-6xl font-bold text-foreground mb-4 tracking-tight">
+      <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">
         404 Not Found
       </h1>
       <p className="font-sans text-lg text-muted-foreground max-w-md mb-8">

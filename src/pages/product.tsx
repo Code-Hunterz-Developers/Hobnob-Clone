@@ -147,7 +147,7 @@ export default function ProductPage() {
               </Link>
             </div>
             
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 md:mb-4 leading-[1.1]">
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 md:mb-4 leading-[1.1]">
               {product.name}
             </h1>
             

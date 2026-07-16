@@ -1,4 +1,5 @@
 import { ShieldCheck } from 'lucide-react';
+import { PageHero } from '@/components/page-hero';
 
 const sections = [
   {
@@ -31,21 +32,11 @@ const sections = [
 export default function PrivacyPolicyPage() {
   return (
     <div className="pb-20">
-      <section className="bg-muted/60 border-b border-border">
-        <div className="container mx-auto px-4 md:px-6 py-14 md:py-20">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-xs font-semibold tracking-[0.2em] uppercase">
-            <ShieldCheck className="w-4 h-4" />
-            Privacy Policy
-          </div>
-          <h1 className="font-serif text-4xl md:text-6xl font-bold mt-6">
-            Your order details stay tied to fulfillment, not guesswork
-          </h1>
-          <p className="max-w-3xl text-lg text-muted-foreground mt-4">
-            This page explains how Lavashak Karachi uses customer, delivery, and
-            payment-related information.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Your order details stay tied to fulfillment, not guesswork"
+        description="This page explains how Lavashak Karachi uses customer, delivery, and payment-related information."
+        badge={{ icon: <ShieldCheck className="w-4 h-4" />, label: 'Privacy Policy' }}
+      />
 
       <section className="container mx-auto px-4 md:px-6 py-12 md:py-16">
         <div className="max-w-4xl space-y-8">

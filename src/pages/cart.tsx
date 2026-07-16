@@ -16,7 +16,7 @@ export default function CartPage() {
         <div className="w-20 h-20 md:w-24 md:h-24 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-6 md:mb-8">
           <ShoppingBag className="w-8 h-8 md:w-10 md:h-10" />
         </div>
-        <h1 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-3 md:mb-4">Your cart is empty</h1>
+        <h1 className="font-serif text-2xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">Your cart is empty</h1>
         <p className="font-sans text-base md:text-lg text-muted-foreground max-w-md mb-6 md:mb-8">
           Looks like you haven't made your sweet selections yet. Let's fix that!
         </p>
@@ -40,7 +40,7 @@ export default function CartPage() {
             <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
           </Button>
         </Link>
-        <h1 className="font-serif text-3xl md:text-5xl font-bold text-foreground truncate">Your Cart</h1>
+        <h1 className="font-serif text-2xl md:text-4xl font-bold text-foreground truncate">Your Cart</h1>
         <span className="bg-primary/10 text-primary font-bold px-2.5 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm ml-auto sm:ml-2 whitespace-nowrap">
           {cartCount} {cartCount === 1 ? 'item' : 'items'}
         </span>

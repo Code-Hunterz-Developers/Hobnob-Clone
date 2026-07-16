@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useParams, useSearchParams, Link } from 'wouter';
+import { useParams, useSearchParams } from 'wouter';
 import { useListProducts } from '@/lib/api/products';
 import { useListCategories } from '@/lib/api/categories';
 import { ProductCard } from '@/components/product-card';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Search, SlidersHorizontal, ChevronRight, Home } from 'lucide-react';
+import { Search, SlidersHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { PageHero } from '@/components/page-hero';
 import {
   Select,
   SelectContent,
@@ -89,34 +90,11 @@ export default function CategoryPage() {
 
   return (
     <div className="animate-in fade-in duration-500 pb-24">
-      {/* Category Header */}
-      <div className="bg-foreground text-background py-12 md:py-24 relative overflow-hidden">
-        {currentCategory?.imageUrl && (
-          <>
-            <img
-              src={currentCategory.imageUrl}
-              alt={categoryName}
-              className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-foreground via-foreground/80 to-transparent"></div>
-          </>
-        )}
-        <div className="container mx-auto px-4 md:px-6 relative z-10 text-center flex flex-col items-center">
-          {/* Breadcrumbs */}
-          <nav className="flex items-center text-[10px] md:text-xs font-bold tracking-widest uppercase text-muted/60 mb-6 md:mb-8 space-x-1 md:space-x-2">
-            <Link href="/" className="hover:text-background transition-colors flex items-center">
-              <Home className="w-3 h-3 mr-1" /> Home
-            </Link>
-            <ChevronRight className="w-3 h-3" />
-            <span className="text-background truncate max-w-[150px] sm:max-w-none">{categoryName}</span>
-          </nav>
-
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl font-bold mb-3 md:mb-4">{categoryName}</h1>
-          <p className="font-sans text-base sm:text-lg text-muted/80 max-w-2xl px-4">
-            {isAll ? 'Explore our full menu.' : `Explore our collection of ${categoryName.toLowerCase()}.`}
-          </p>
-        </div>
-      </div>
+      <PageHero
+        title={categoryName}
+        description={isAll ? 'Explore our full menu.' : `Explore our collection of ${categoryName.toLowerCase()}.`}
+        showBreadcrumb
+      />
 
       <div className="container mx-auto px-4 md:px-6 mt-8 md:mt-12">
         {/* Filters & Controls */}

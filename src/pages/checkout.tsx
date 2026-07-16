@@ -99,7 +99,7 @@ export default function CheckoutPage() {
             <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
           </Button>
         </Link>
-        <h1 className="font-serif text-3xl md:text-5xl font-bold text-foreground">Checkout</h1>
+        <h1 className="font-serif text-2xl md:text-4xl font-bold text-foreground">Checkout</h1>
       </div>
 
       <div className="grid lg:grid-cols-5 gap-8 md:gap-12 items-start flex-col-reverse lg:flex-row">

@@ -47,7 +47,7 @@ export default function OrderConfirmationPage() {
         <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-primary/10 text-primary mb-8 animate-bounce-subtle">
           <CheckCircle2 className="w-12 h-12" />
         </div>
-        <h1 className="font-serif text-5xl md:text-6xl font-bold text-foreground mb-4 leading-tight">
+        <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
           It's in the oven!
         </h1>
         <p className="font-sans text-xl text-muted-foreground max-w-xl mx-auto">

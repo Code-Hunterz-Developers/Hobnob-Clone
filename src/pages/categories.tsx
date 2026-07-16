@@ -3,6 +3,7 @@ import { ArrowRight, Layers3 } from 'lucide-react';
 import { useListCategories } from '@/lib/api/categories';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { PageHero } from '@/components/page-hero';
 
 export default function CategoriesPage() {
   const { data: categories, isLoading } = useListCategories();
@@ -10,21 +11,11 @@ export default function CategoriesPage() {
 
   return (
     <div className="pb-20">
-      <section className="bg-primary text-primary-foreground py-16 md:py-24">
-        <div className="container mx-auto px-4 md:px-6 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 px-4 py-2 text-xs font-semibold tracking-[0.22em] uppercase">
-            <Layers3 className="w-4 h-4" />
-            Categories
-          </div>
-          <h1 className="font-serif text-4xl md:text-6xl font-bold mt-6">
-            Browse every collection in one place
-          </h1>
-          <p className="max-w-2xl mx-auto mt-4 text-primary-foreground/80 text-lg">
-            Cakes, cookies, tarts, and signature deal boxes. Pick a collection and
-            jump straight into the treats you want.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Browse every collection in one place"
+        description="Cakes, cookies, tarts, and signature deal boxes. Pick a collection and jump straight into the treats you want."
+        badge={{ icon: <Layers3 className="w-4 h-4" />, label: 'Categories' }}
+      />
 
       <section className="container mx-auto px-4 md:px-6 py-12 md:py-16">
         <div className="flex items-center justify-between gap-4 mb-8">

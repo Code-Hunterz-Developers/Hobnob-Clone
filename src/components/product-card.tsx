@@ -31,10 +31,10 @@ export function ProductCard({ product }: { product: Product }) {
         {/* Tags */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
           {product.tags?.map((tag: string) => (
-            <span key={tag} className={`text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full text-white shadow-sm ${
-              tag.toLowerCase() === 'deal' ? 'bg-destructive' : 
-              tag.toLowerCase() === 'popular' ? 'bg-secondary text-secondary-foreground' : 
-              'bg-primary'
+            <span key={tag} className={`text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full shadow-sm ${
+              tag.toLowerCase() === 'deal' ? 'bg-destructive text-destructive-foreground' :
+              tag.toLowerCase() === 'popular' ? 'bg-secondary text-secondary-foreground border border-border' :
+              'bg-primary text-primary-foreground'
             }`}>
               {formatTagLabel(tag)}
             </span>
