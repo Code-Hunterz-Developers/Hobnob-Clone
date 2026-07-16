@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'wouter';
 import { ShoppingBag, Menu, MapPin } from 'lucide-react';
 import { useCart } from '@/lib/cart';
-import { useListCategories } from '@/lib/api/categories';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -14,9 +13,24 @@ import {
 import { LocationModal } from '@/components/location-modal';
 import { BrandLogo } from '@/components/brand-logo';
 
+const primaryNavLinks = [
+  { href: '/category/all', label: 'All Products' },
+  { href: '/categories', label: 'Categories' },
+  { href: '/deal-boxes', label: 'Deal Boxes' },
+  { href: '/track-order', label: 'Track Order' },
+] as const;
+
+const footerPageLinks = [
+  { href: '/category/all', label: 'All Products' },
+  { href: '/categories', label: 'Categories' },
+  { href: '/deal-boxes', label: 'Deal Boxes' },
+  { href: '/track-order', label: 'Track Order' },
+  { href: '/privacy-policy', label: 'Privacy Policy' },
+  { href: '/terms-and-conditions', label: 'Terms & Conditions' },
+] as const;
+
 export function Layout({ children }: { children: React.ReactNode }) {
   const { cartCount } = useCart();
-  const { data: categories } = useListCategories();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [city, setCity] = React.useState<string | null>(null);
   const [address, setAddress] = React.useState<string | null>(null);
@@ -51,18 +65,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   const NavLinks = () => (
     <>
-      {categories?.map((cat) => (
+      {primaryNavLinks.map((link) => (
         <Link
-          key={cat.id}
-          href={`/category/${cat.slug}`}
+          key={link.href}
+          href={link.href}
           className="text-foreground hover:text-primary transition-colors font-medium text-lg lg:text-base"
         >
-          {cat.name}
+          {link.label}
         </Link>
       ))}
-      <Link href="/track-order" className="text-foreground hover:text-primary transition-colors font-medium text-lg lg:text-base">
-        Track Order
-      </Link>
       
       {/* Mobile-only city selector */}
       <div className="md:hidden mt-4 pt-4 border-t border-border">
@@ -167,12 +178,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
             
             <div>
-              <h4 className="font-serif font-bold text-xl mb-6 text-secondary">Shop</h4>
+              <h4 className="font-serif font-bold text-xl mb-6 text-secondary">Pages</h4>
               <ul className="space-y-4 font-sans text-primary-foreground/78">
-                {categories?.map((cat) => (
-                  <li key={cat.id}>
-                    <Link href={`/category/${cat.slug}`} className="hover:text-secondary transition-colors">
-                      {cat.name}
+                {footerPageLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="hover:text-secondary transition-colors">
+                      {link.label}
                     </Link>
                   </li>
                 ))}
@@ -180,12 +191,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </div>
             
             <div>
-              <h4 className="font-serif font-bold text-xl mb-6 text-secondary">Contact</h4>
+              <h4 className="font-serif font-bold text-xl mb-6 text-secondary">Payments</h4>
               <ul className="space-y-4 font-sans text-primary-foreground/78">
-                <li>Lavashak Karachi</li>
-                <li>Karachi, Pakistan</li>
-                <li>orders@lavashakkarachi.com</li>
-                <li>+92 300 0000000</li>
+                <li>Verified payments may be required before dispatch on selected orders.</li>
+                <li>Payment records are retained for support and dispute handling.</li>
               </ul>
             </div>
           </div>

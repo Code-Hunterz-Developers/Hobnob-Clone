@@ -16,6 +16,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   const isDiscounted = product.discountPrice !== null && product.discountPrice !== undefined;
   const currentPrice = isDiscounted ? product.discountPrice : product.price;
+  const formatTagLabel = (tag: string) => tag.replace('-', ' ');
 
   return (
     <Link href={`/product/${product.id}`} className="group flex flex-col bg-card rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 hover-elevate">
@@ -35,7 +36,7 @@ export function ProductCard({ product }: { product: Product }) {
               tag.toLowerCase() === 'popular' ? 'bg-secondary text-secondary-foreground' : 
               'bg-primary'
             }`}>
-              {tag}
+              {formatTagLabel(tag)}
             </span>
           ))}
         </div>

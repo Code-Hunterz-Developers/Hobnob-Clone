@@ -14,11 +14,15 @@ import { AdminAuthProvider } from '@/lib/admin-auth';
 // Pages
 import Home from '@/pages/home';
 import CategoryPage from '@/pages/category';
+import CategoriesPage from '@/pages/categories';
+import DealBoxesPage from '@/pages/deal-boxes';
 import ProductPage from '@/pages/product';
 import CartPage from '@/pages/cart';
 import CheckoutPage from '@/pages/checkout';
 import OrderConfirmationPage from '@/pages/order-confirmation';
 import TrackOrderPage from '@/pages/track-order';
+import PrivacyPolicyPage from '@/pages/privacy-policy';
+import TermsAndConditionsPage from '@/pages/terms-and-conditions';
 import NotFound from '@/pages/not-found';
 import AdminLoginPage from '@/pages/admin/login';
 import AdminDashboardPage from '@/pages/admin/dashboard';
@@ -56,12 +60,16 @@ function StorefrontRouter() {
     <Layout>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/categories" component={CategoriesPage} />
+        <Route path="/deal-boxes" component={DealBoxesPage} />
         <Route path="/category/:slug" component={CategoryPage} />
         <Route path="/product/:id" component={ProductPage} />
         <Route path="/cart" component={CartPage} />
         <Route path="/checkout" component={CheckoutPage} />
         <Route path="/order/:id" component={OrderConfirmationPage} />
         <Route path="/track-order" component={TrackOrderPage} />
+        <Route path="/privacy-policy" component={PrivacyPolicyPage} />
+        <Route path="/terms-and-conditions" component={TermsAndConditionsPage} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

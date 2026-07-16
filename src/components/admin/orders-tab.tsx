@@ -7,10 +7,30 @@ import {
 } from '@/lib/api/orders';
 import { formatPrice } from '@/lib/currency';
 import { Badge } from '@/components/ui/badge';
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from '@/components/ui/table';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
-const STATUS_OPTIONS = ['placed', 'confirmed', 'preparing', 'out_for_delivery', 'delivered', 'cancelled'] as const;
+const STATUS_OPTIONS = [
+  'placed',
+  'confirmed',
+  'preparing',
+  'out_for_delivery',
+  'delivered',
+  'cancelled',
+] as const;
 
 const STATUS_LABELS: Record<string, string> = {
   placed: 'Placed',
@@ -21,7 +41,9 @@ const STATUS_LABELS: Record<string, string> = {
   cancelled: 'Cancelled',
 };
 
-function statusVariant(status: string): 'default' | 'secondary' | 'destructive' | 'outline' {
+function statusVariant(
+  status: string,
+): 'default' | 'secondary' | 'destructive' | 'outline' {
   if (status === 'delivered') return 'default';
   if (status === 'cancelled') return 'destructive';
   if (status === 'placed') return 'outline';
@@ -45,17 +67,17 @@ export function AdminOrdersTab() {
 
   return (
     <div>
-      <h2 className="text-xl font-serif font-bold mb-4">Orders</h2>
-      <div className="bg-background rounded-lg border border-border">
+      <h2 className="text-2xl font-serif font-bold text-primary mb-4">Orders</h2>
+      <div className="bg-card/95 rounded-2xl border border-border shadow-lg shadow-black/10 overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Order</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead>Items</TableHead>
-              <TableHead>Total</TableHead>
-              <TableHead>Placed</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead className="text-foreground">Order</TableHead>
+              <TableHead className="text-foreground">Customer</TableHead>
+              <TableHead className="text-foreground">Items</TableHead>
+              <TableHead className="text-foreground">Total</TableHead>
+              <TableHead className="text-foreground">Placed</TableHead>
+              <TableHead className="text-foreground">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -74,24 +96,38 @@ export function AdminOrdersTab() {
               </TableRow>
             )}
             {orders?.map((order) => (
-              <TableRow key={order.id} data-testid={`row-order-${order.id}`}>
-                <TableCell className="font-medium">#{order.id}</TableCell>
-                <TableCell>
+              <TableRow
+                key={order.id}
+                data-testid={`row-order-${order.id}`}
+                className="border-border/80"
+              >
+                <TableCell className="font-medium text-foreground">
+                  #{order.id}
+                </TableCell>
+                <TableCell className="text-foreground">
                   <div>{order.customerName}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {order.phone} · {order.city}
+                  <div className="text-xs text-foreground/65">
+                    {order.phone} | {order.city}
                   </div>
                 </TableCell>
-                <TableCell className="text-sm text-muted-foreground">
+                <TableCell className="text-sm text-foreground/75">
                   {order.items.map((item) => `${item.name} x${item.quantity}`).join(', ')}
                 </TableCell>
-                <TableCell>{formatPrice(order.total)}</TableCell>
-                <TableCell className="text-sm text-muted-foreground">
+                <TableCell className="text-foreground">
+                  {formatPrice(order.total)}
+                </TableCell>
+                <TableCell className="text-sm text-foreground/75">
                   {new Date(order.createdAt).toLocaleString()}
                 </TableCell>
                 <TableCell>
-                  <Select value={order.status} onValueChange={(v) => handleStatusChange(order.id, v)}>
-                    <SelectTrigger className="w-[170px]" data-testid={`select-order-status-${order.id}`}>
+                  <Select
+                    value={order.status}
+                    onValueChange={(value) => handleStatusChange(order.id, value)}
+                  >
+                    <SelectTrigger
+                      className="w-[170px] bg-card/80 text-foreground"
+                      data-testid={`select-order-status-${order.id}`}
+                    >
                       <SelectValue>
                         <Badge variant={statusVariant(order.status)}>
                           {STATUS_LABELS[order.status] ?? order.status}

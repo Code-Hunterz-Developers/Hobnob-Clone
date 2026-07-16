@@ -93,7 +93,7 @@ export function AdminCategoriesTab() {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-serif font-bold">Categories</h2>
+        <h2 className="text-2xl font-serif font-bold text-primary">Categories</h2>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button onClick={openCreate} data-testid="button-add-category">
@@ -147,13 +147,13 @@ export function AdminCategoriesTab() {
         </Dialog>
       </div>
 
-      <div className="bg-background rounded-lg border border-border">
+      <div className="bg-card/95 rounded-2xl border border-border shadow-lg shadow-black/10 overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Slug</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead className="text-foreground">Name</TableHead>
+              <TableHead className="text-foreground">Slug</TableHead>
+              <TableHead className="text-right text-foreground">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -172,16 +172,16 @@ export function AdminCategoriesTab() {
               </TableRow>
             )}
             {categories?.map((category) => (
-              <TableRow key={category.id} data-testid={`row-category-${category.id}`}>
-                <TableCell className="font-medium">{category.name}</TableCell>
-                <TableCell className="text-muted-foreground">{category.slug}</TableCell>
+              <TableRow key={category.id} data-testid={`row-category-${category.id}`} className="border-border/80">
+                <TableCell className="font-medium text-foreground">{category.name}</TableCell>
+                <TableCell className="text-foreground/80">{category.slug}</TableCell>
                 <TableCell className="text-right space-x-2">
-                  <Button variant="ghost" size="icon" onClick={() => openEdit(category)} data-testid={`button-edit-category-${category.id}`}>
+                  <Button variant="ghost" size="icon" className="text-foreground/75 hover:text-foreground hover:bg-muted/70" onClick={() => openEdit(category)} data-testid={`button-edit-category-${category.id}`}>
                     <Pencil className="w-4 h-4" />
                   </Button>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant="ghost" size="icon" data-testid={`button-delete-category-${category.id}`}>
+                      <Button variant="ghost" size="icon" className="hover:bg-muted/70" data-testid={`button-delete-category-${category.id}`}>
                         <Trash2 className="w-4 h-4 text-destructive" />
                       </Button>
                     </AlertDialogTrigger>

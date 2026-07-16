@@ -125,7 +125,7 @@ export default function ProductPage() {
                   tag.toLowerCase() === 'popular' ? 'bg-secondary text-secondary-foreground' : 
                   'bg-primary'
                 }`}>
-                  {tag}
+                  {tag.replace('-', ' ')}
                 </span>
               ))}
             </div>

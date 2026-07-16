@@ -271,6 +271,28 @@
     linear-gradient(180deg, hsl(353 40% 12%), hsl(350 43% 9%));
 }
 
+.category-marquee {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.category-marquee-track {
+  animation: category-marquee-scroll 28s linear infinite;
+}
+
+.category-marquee:hover .category-marquee-track {
+  animation-play-state: running;
+}
+
+@keyframes category-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 0.625rem));
+  }
+}
+
 @layer base {
   * {
     @apply border-border;

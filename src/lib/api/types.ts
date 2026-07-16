@@ -23,7 +23,7 @@ export type ProductInput = Omit<Product, 'id' | 'categorySlug'>;
 
 // The homepage's "Neighborhood Favorites" / "Fresh Out The Oven" / "Sweet Steals"
 // rows filter products by exactly these tags — keep the admin tag picker in sync.
-export const PRODUCT_TAGS = ['popular', 'new', 'deal'] as const;
+export const PRODUCT_TAGS = ['popular', 'new', 'deal', 'deal-box'] as const;
 
 export interface OrderItemInput {
   productId: string;

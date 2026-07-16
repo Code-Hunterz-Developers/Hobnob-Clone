@@ -40,33 +40,40 @@ function CategorySection() {
     );
   }
 
+  const marqueeCategories = [...(categories ?? []), ...(categories ?? [])];
+
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
-      {categories?.map((cat, i) => (
-        <Link 
-          key={cat.id} 
-          href={`/category/${cat.slug}`}
-          className={`group relative overflow-hidden rounded-2xl aspect-[4/3] md:aspect-square bg-muted flex items-end p-3 md:p-6 hover-elevate transition-transform transform hover:-translate-y-1`}
-          style={{ animationDelay: `${i * 100}ms` }}
-        >
-          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10"></div>
-          {cat.imageUrl ? (
-            <img
-              src={cat.imageUrl}
-              alt={cat.name}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
-          ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-primary/10" />
-          )}
-          <div className="relative z-20 w-full flex items-center justify-between text-white">
-            <h3 className="font-serif text-lg md:text-2xl font-bold">{cat.name}</h3>
-            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
-              <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
-            </div>
+    <div className="category-marquee overflow-hidden">
+      <div className="category-marquee-track flex gap-3 md:gap-5 w-max">
+        {marqueeCategories.map((cat, i) => (
+          <div
+            key={`${cat.id}-${i}`}
+            className="w-[86vw] sm:w-[360px] lg:w-[380px] xl:w-[400px] shrink-0"
+          >
+            <Link
+              href={`/category/${cat.slug}`}
+              className="group relative overflow-hidden rounded-[1.75rem] aspect-[4/3] md:aspect-[5/4] bg-muted flex items-end p-3 md:p-6 hover-elevate transition-transform duration-500 transform hover:-translate-y-1"
+            >
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10"></div>
+              {cat.imageUrl ? (
+                <img
+                  src={cat.imageUrl}
+                  alt={cat.name}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-primary/10" />
+              )}
+              <div className="relative z-20 w-full flex items-center justify-between text-white">
+                <h3 className="font-serif text-lg md:text-2xl font-bold">{cat.name}</h3>
+                <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
+                  <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
+                </div>
+              </div>
+            </Link>
           </div>
-        </Link>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
@@ -163,7 +170,7 @@ export default function Home() {
                 Shop Signature Range
               </Button>
             </Link>
-            <Link href="/category/all?tag=deal" className="w-full sm:w-auto">
+            <Link href="/deal-boxes" className="w-full sm:w-auto">
               <Button size="lg" variant="outline" className="h-12 md:h-14 px-6 md:px-8 text-base md:text-lg rounded-full bg-transparent border-background/30 text-background hover:bg-background hover:text-foreground w-full">
                 View Gift Boxes
               </Button>
@@ -173,8 +180,21 @@ export default function Home() {
       </section>
 
       {/* Categories */}
-      <section className="container mx-auto px-4 md:px-6 -mt-6 md:-mt-10 relative z-20">
+      <section className="container mx-auto px-4 md:px-6 mt-8 md:-mt-14 relative z-20">
+        <div className="rounded-[2rem] border border-border/70 bg-background/96 shadow-xl shadow-primary/8 backdrop-blur px-4 py-6 md:px-6 md:py-8">
+        <div className="mb-5 flex items-center justify-between gap-4 px-2 md:px-0">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.22em] uppercase text-primary">Explore</p>
+            <h2 className="font-serif text-2xl md:text-4xl font-bold">Browse Categories</h2>
+          </div>
+          <Link href="/categories">
+            <Button variant="ghost" className="hidden sm:flex items-center gap-2 group hover:text-primary">
+              View All <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
+        </div>
         <CategorySection />
+        </div>
       </section>
 
       {/* Popular Products */}
@@ -197,9 +217,14 @@ export default function Home() {
               <p className="font-sans text-base sm:text-lg md:text-xl text-muted-foreground mb-8 md:mb-10 max-w-md">
                 A curated mix of fruit-forward favourites and rich dessert pairings, packed for gifting with the same warmth as your logo.
               </p>
-              <Link href="/category/all?tag=deal" className="w-full sm:w-auto">
+              <Link href="/deal-boxes" className="w-full sm:w-auto">
                 <Button size="lg" className="h-12 md:h-14 px-6 md:px-8 text-base md:text-lg rounded-full shadow-lg shadow-primary/20 group w-full sm:w-auto">
                   Grab a Box <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link href="/category/all?tag=deal" className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="mt-3 sm:mt-0 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg rounded-full w-full sm:w-auto">
+                  View All Deals
                 </Button>
               </Link>
             </div>

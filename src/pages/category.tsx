@@ -19,6 +19,7 @@ const TAG_LABELS: Record<string, string> = {
   popular: 'Popular',
   new: 'New Arrivals',
   deal: 'Deals',
+  'deal-box': 'Deal Boxes',
 };
 
 export default function CategoryPage() {
@@ -82,7 +83,7 @@ export default function CategoryPage() {
   const categoryName =
     currentCategory?.name ||
     (isAll
-      ? (tagParam && TAG_LABELS[tagParam]) || 'All Treats'
+      ? (tagParam && TAG_LABELS[tagParam]) || 'All Products'
       : slug?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')) ||
     'Products';
 

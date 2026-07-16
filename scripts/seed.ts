@@ -199,7 +199,7 @@ const products: ProductSeed[] = [
     price: 2200,
     discountPrice: 1800,
     image: 'product-deal-box-1.jpg',
-    tags: ['deal', 'popular'],
+    tags: ['deal', 'popular', 'deal-box'],
   },
   {
     categorySlug: 'deal-boxes',
@@ -209,7 +209,7 @@ const products: ProductSeed[] = [
     price: 1900,
     discountPrice: 1600,
     image: 'product-deal-box-2.jpg',
-    tags: ['deal', 'new'],
+    tags: ['deal', 'new', 'deal-box'],
   },
 ];
 
