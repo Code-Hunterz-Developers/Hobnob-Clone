@@ -79,16 +79,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   const NavLinks = () => (
     <>
-      {primaryNavLinks.map((link) => (
-        <Link
-          key={link.href}
-          href={link.href}
-          onClick={() => setMobileMenuOpen(false)}
-          className="text-foreground hover:text-primary transition-colors font-medium text-lg lg:text-base"
-        >
-          {link.label}
-        </Link>
-      ))}
+      {primaryNavLinks.map((link) => {
+        const isActive = location === link.href;
+        return (
+          <Link
+            key={link.href}
+            href={link.href}
+            onClick={() => setMobileMenuOpen(false)}
+            className={`transition-colors font-medium text-lg lg:text-base ${
+              isActive ? 'text-primary font-bold' : 'text-foreground hover:text-primary'
+            }`}
+          >
+            {link.label}
+          </Link>
+        );
+      })}
       
       {/* Mobile-only city selector */}
       <div className="md:hidden mt-4 pt-4 border-t border-border">
