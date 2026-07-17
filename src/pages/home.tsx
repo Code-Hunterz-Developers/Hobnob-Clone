@@ -217,16 +217,18 @@ export default function Home() {
               <p className="font-sans text-base sm:text-lg md:text-xl text-muted-foreground mb-8 md:mb-10 max-w-md">
                 A curated mix of fruit-forward favourites and rich dessert pairings, packed for gifting with the same warmth as your logo.
               </p>
-              <Link href="/deal-boxes" className="w-full sm:w-auto">
-                <Button size="lg" className="h-12 md:h-14 px-6 md:px-8 text-base md:text-lg rounded-full shadow-lg shadow-primary/20 group w-full sm:w-auto">
-                  Grab a Box <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link href="/category/all?tag=deal" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="mt-3 sm:mt-0 h-12 md:h-14 px-6 md:px-8 text-base md:text-lg rounded-full w-full sm:w-auto">
-                  View All Deals
-                </Button>
-              </Link>
+              <div className="flex w-full flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+                <Link href="/deal-boxes" className="w-full sm:w-auto">
+                  <Button size="lg" className="h-12 md:h-14 px-6 md:px-8 text-base md:text-lg rounded-full shadow-lg shadow-primary/20 group w-full sm:w-auto">
+                    Grab a Box <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+                <Link href="/category/all?tag=deal" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="h-12 md:h-14 px-6 md:px-8 text-base md:text-lg rounded-full w-full sm:w-auto">
+                    View All Deals
+                  </Button>
+                </Link>
+              </div>
             </div>
             <div className="h-48 sm:h-64 md:h-auto min-h-[250px] relative order-1 md:order-2">
               <img 
