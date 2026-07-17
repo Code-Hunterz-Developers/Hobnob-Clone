@@ -23,6 +23,7 @@ import OrderConfirmationPage from '@/pages/order-confirmation';
 import TrackOrderPage from '@/pages/track-order';
 import PrivacyPolicyPage from '@/pages/privacy-policy';
 import TermsAndConditionsPage from '@/pages/terms-and-conditions';
+import FeedbackPage from '@/pages/feedback';
 import NotFound from '@/pages/not-found';
 import AdminLoginPage from '@/pages/admin/login';
 import AdminDashboardPage from '@/pages/admin/dashboard';
@@ -70,6 +71,7 @@ function StorefrontRouter() {
         <Route path="/track-order" component={TrackOrderPage} />
         <Route path="/privacy-policy" component={PrivacyPolicyPage} />
         <Route path="/terms-and-conditions" component={TermsAndConditionsPage} />
+        <Route path="/feedback" component={FeedbackPage} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
