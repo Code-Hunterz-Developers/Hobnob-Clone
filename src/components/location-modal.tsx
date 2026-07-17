@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -116,6 +116,7 @@ export function LocationModal({
   const [locationError, setLocationError] = useState<string | null>(null);
   const [selectedArea, setSelectedArea] = useState<string | null>(null);
   const [comboOpen, setComboOpen] = useState(false);
+  const commandListRef = useRef<HTMLDivElement | null>(null);
 
   const handleUseCurrentLocation = () => {
     setLocationError(null);
@@ -148,6 +149,15 @@ export function LocationModal({
   const handleConfirm = () => {
     if (!selectedArea) return;
     onSelectCity('Karachi', selectedArea);
+  };
+
+  const handleAreaListWheel: React.WheelEventHandler<HTMLDivElement> = (event) => {
+    const list = commandListRef.current;
+    if (!list) return;
+
+    list.scrollTop += event.deltaY;
+    event.preventDefault();
+    event.stopPropagation();
   };
 
   return (
@@ -209,7 +219,11 @@ export function LocationModal({
             <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
               <Command>
                 <CommandInput placeholder="Search area..." />
-                <CommandList>
+                <CommandList
+                  ref={commandListRef}
+                  className="max-h-72 overscroll-contain"
+                  onWheel={handleAreaListWheel}
+                >
                   <CommandEmpty>No matching area found.</CommandEmpty>
                   <CommandGroup>
                     {KARACHI_AREAS.map((area) => (

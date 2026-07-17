@@ -29,6 +29,14 @@ const footerPageLinks = [
   { href: '/terms-and-conditions', label: 'Terms & Conditions' },
 ] as const;
 
+const socialLinks = [
+  { href: 'https://www.facebook.com/share/1CwHEXaTtt/', label: 'Facebook' },
+  {
+    href: 'https://www.tiktok.com/@lavashakkarachi?_r=1&_d=f0417gmfal2c0c&sec_uid=MS4wLjABAAAAg676O1FLWtdXft8GkimjLAyjSj0xiBIcUoJq3jsAozSkzZl5n082jLKu5HpD88Fq&share_author_id=7531509435597440022&sharer_language=en&source=h5_m&u_code=elfc24m31ifi76&timestamp=1784234117&user_id=7531509435597440022&sec_user_id=MS4wLjABAAAAg676O1FLWtdXft8GkimjLAyjSj0xiBIcUoJq3jsAozSkzZl5n082jLKu5HpD88Fq&item_author_type=1&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7661423365399791382&share_link_id=c3bcc1de-5652-4541-b711-2d62cb7215c4&share_app_id=1233&ugbiz_name=ACCOUNT&ug_btm=b8727%2Cb7360&social_share_type=5&enable_checksum=1',
+    label: 'TikTok',
+  },
+] as const;
+
 export function Layout({ children }: { children: React.ReactNode }) {
   const { cartCount } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
@@ -202,9 +210,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="pt-8 border-t border-primary-foreground/15 text-center md:text-left text-primary-foreground/72 font-sans text-sm flex flex-col md:flex-row justify-between items-center gap-4">
             <p>&copy; {new Date().getFullYear()} Lavashak Karachi. All rights reserved.</p>
             <div className="flex flex-wrap justify-center gap-4">
-              <span className="hover:text-secondary cursor-pointer transition-colors">Instagram</span>
-              <span className="hover:text-secondary cursor-pointer transition-colors">Facebook</span>
-              <span className="hover:text-secondary cursor-pointer transition-colors">TikTok</span>
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.href.startsWith('http') ? '_blank' : undefined}
+                  rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                  className="hover:text-secondary transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>
