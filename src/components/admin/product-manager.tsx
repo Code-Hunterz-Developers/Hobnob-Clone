@@ -10,8 +10,10 @@ import {
   useAdminDeleteProduct,
 } from '@/lib/api/products';
 import { useListCategories } from '@/lib/api/categories';
-import { PRODUCT_TAGS, type Product } from '@/lib/api/types';
+import { PRODUCT_TAGS, type Product, type ProductInput } from '@/lib/api/types';
 import { ImageUploadField } from '@/components/admin/image-upload-field';
+import { BulkUploadDialog, type BulkUploadColumn } from '@/components/admin/bulk-upload-dialog';
+import { processImage } from '@/lib/api/image';
 import { formatPrice } from '@/lib/currency';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -120,6 +122,75 @@ export function AdminProductManager({
   const withFixedTags = (tags: string[]) =>
     Array.from(new Set([...tags, ...fixedTags]));
 
+  const bulkColumns: BulkUploadColumn[] = [
+    { key: 'name', label: 'Name', required: true },
+    { key: 'description', label: 'Description', required: true },
+    { key: 'price', label: 'Price', required: true, hint: 'number, e.g. 450' },
+    { key: 'discountprice', label: 'Discount Price', hint: 'optional number' },
+    ...(fixedCategory
+      ? []
+      : [{ key: 'category', label: 'Category', required: true, hint: 'must match an existing category name or slug' }]),
+    { key: 'tags', label: 'Tags', hint: `optional, separated by ";" — one or more of ${visibleTags.join(', ')}` },
+    { key: 'image', label: 'Image', required: true, hint: 'exact filename of an image uploaded in step 2, e.g. cake.jpg' },
+  ];
+
+  type BulkProductRow = Omit<ProductInput, 'imageUrl'> & { imageFile: File };
+
+  const parseBulkRow = (raw: Record<string, string>, imageFile: File | undefined): BulkProductRow => {
+    const name = raw.name?.trim();
+    if (!name) throw new Error('Name is required');
+
+    const description = raw.description?.trim();
+    if (!description) throw new Error('Description is required');
+
+    const price = Number(raw.price);
+    if (!raw.price?.trim() || Number.isNaN(price) || price <= 0) {
+      throw new Error('Price must be a positive number');
+    }
+
+    let discountPrice: number | null = null;
+    const discountRaw = raw.discountprice?.trim();
+    if (discountRaw) {
+      const parsed = Number(discountRaw);
+      if (Number.isNaN(parsed) || parsed < 0) throw new Error('Discount price must be a number');
+      discountPrice = parsed;
+    }
+
+    if (!imageFile) throw new Error('Image is required');
+
+    let categoryId: string;
+    if (fixedCategory) {
+      categoryId = fixedCategory.id;
+    } else {
+      const categoryValue = raw.category?.trim().toLowerCase();
+      if (!categoryValue) throw new Error('Category is required');
+      const match = categories?.find(
+        (c) => c.name.toLowerCase() === categoryValue || c.slug.toLowerCase() === categoryValue
+      );
+      if (!match) throw new Error(`Category "${raw.category}" not found`);
+      categoryId = match.id;
+    }
+
+    const rawTags = raw.tags?.trim();
+    const tagList = rawTags
+      ? rawTags.split(';').map((t) => t.trim().toLowerCase()).filter(Boolean)
+      : [];
+    const invalidTag = tagList.find((t) => !(PRODUCT_TAGS as readonly string[]).includes(t));
+    if (invalidTag) {
+      throw new Error(`Unknown tag "${invalidTag}" — use ${PRODUCT_TAGS.join(', ')}`);
+    }
+
+    return {
+      categoryId,
+      name,
+      description,
+      price,
+      discountPrice,
+      imageFile,
+      tags: withFixedTags(tagList),
+    };
+  };
+
   const openCreate = () => {
     setEditing(null);
     setForm({
@@ -196,20 +267,43 @@ export function AdminProductManager({
             <p className="text-sm text-foreground/75 mt-1">{description}</p>
           ) : null}
         </div>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger asChild>
-            <Button
-              onClick={openCreate}
-              disabled={disableCreate}
-              data-testid={`button-add-${title.toLowerCase().replace(/\s+/g, '-')}`}
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              {addLabel}
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>{editing ? `Edit ${title}` : addLabel}</DialogTitle>
+        <div className="flex items-center gap-2">
+          <BulkUploadDialog<BulkProductRow>
+            entityLabel={title}
+            columns={bulkColumns}
+            templateFilename={`${title.toLowerCase().replace(/\s+/g, '-')}-template.csv`}
+            templateExampleRow={[
+              'Chocolate Lavashak',
+              'Rich chocolate-dipped fruit leather',
+              '450',
+              '399',
+              ...(fixedCategory ? [] : ['Cakes']),
+              'popular',
+              'chocolate-lavashak.jpg',
+            ]}
+            imageColumnKey="image"
+            parseRow={parseBulkRow}
+            getRowLabel={(raw) => raw.name ?? ''}
+            createRow={async ({ imageFile, ...data }) => {
+              const imageUrl = await processImage(imageFile);
+              await createMutation.mutateAsync({ data: { ...data, imageUrl } });
+            }}
+            onComplete={invalidate}
+          />
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger asChild>
+              <Button
+                onClick={openCreate}
+                disabled={disableCreate}
+                data-testid={`button-add-${title.toLowerCase().replace(/\s+/g, '-')}`}
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                {addLabel}
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>{editing ? `Edit ${title}` : addLabel}</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               {fixedCategory ? (
@@ -333,6 +427,7 @@ export function AdminProductManager({
             </form>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       <div className="bg-card/95 rounded-2xl border border-border shadow-lg shadow-black/10 overflow-hidden">

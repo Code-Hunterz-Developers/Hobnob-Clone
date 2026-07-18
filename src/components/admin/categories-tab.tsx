@@ -9,8 +9,11 @@ import {
   useAdminUpdateCategory,
   useAdminDeleteCategory,
 } from '@/lib/api/categories';
-import type { Category } from '@/lib/api/types';
+import type { Category, CategoryInput } from '@/lib/api/types';
 import { ImageUploadField } from '@/components/admin/image-upload-field';
+import { BulkUploadDialog, type BulkUploadColumn } from '@/components/admin/bulk-upload-dialog';
+import { slugify } from '@/lib/csv';
+import { processImage } from '@/lib/api/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -48,6 +51,29 @@ export function AdminCategoriesTab() {
   const [form, setForm] = React.useState<CategoryFormState>(emptyForm);
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: categoriesQueryKey() });
+
+  const bulkColumns: BulkUploadColumn[] = [
+    { key: 'name', label: 'Name', required: true },
+    { key: 'slug', label: 'Slug', hint: 'optional — auto-generated from name if left blank' },
+    { key: 'image', label: 'Image', hint: 'optional — exact filename of an image uploaded in step 2, e.g. cakes.jpg' },
+  ];
+
+  type BulkCategoryRow = Omit<CategoryInput, 'imageUrl'> & { imageFile?: File };
+
+  const parseBulkRow = (raw: Record<string, string>, imageFile: File | undefined): BulkCategoryRow => {
+    const name = raw.name?.trim();
+    if (!name) throw new Error('Name is required');
+
+    const slugRaw = raw.slug?.trim();
+    const slug = slugRaw ? slugify(slugRaw) : slugify(name);
+    if (!slug) throw new Error('Could not derive a slug from the name');
+
+    return {
+      name,
+      slug,
+      imageFile,
+    };
+  };
 
   const openCreate = () => {
     setEditing(null);
@@ -94,6 +120,21 @@ export function AdminCategoriesTab() {
     <div>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-serif font-bold text-primary">Categories</h2>
+        <div className="flex items-center gap-2">
+        <BulkUploadDialog<BulkCategoryRow>
+          entityLabel="Categories"
+          columns={bulkColumns}
+          templateFilename="categories-template.csv"
+          templateExampleRow={['Cakes', 'cakes', 'cakes.jpg']}
+          imageColumnKey="image"
+          parseRow={parseBulkRow}
+          getRowLabel={(raw) => raw.name ?? ''}
+          createRow={async ({ imageFile, ...data }) => {
+            const imageUrl = imageFile ? await processImage(imageFile) : '';
+            await createMutation.mutateAsync({ data: { ...data, imageUrl } });
+          }}
+          onComplete={invalidate}
+        />
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button onClick={openCreate} data-testid="button-add-category">
@@ -145,6 +186,7 @@ export function AdminCategoriesTab() {
             </form>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       <div className="bg-card/95 rounded-2xl border border-border shadow-lg shadow-black/10 overflow-hidden">
